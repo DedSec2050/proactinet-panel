@@ -1,21 +1,23 @@
 // import { getRequestContext } from '@cloudflare/next-on-pages'
 
-export const runtime = 'edge'
+export const runtime = "edge";
 
 export async function GET() {
-  const responseText = 'Hello World'
+  const apiUrl = "https://67a86a86203008941f69d661.mockapi.io/api/NXT_TEST";
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
 
-  // In the edge runtime you can use Bindings that are available in your application
-  // (for more details see:
-  //    - https://developers.cloudflare.com/pages/framework-guides/deploy-a-nextjs-site/#use-bindings-in-your-nextjs-application
-  //    - https://developers.cloudflare.com/pages/functions/bindings/
-  // )
-  //
-  // KV Example:
-  // const myKv = getRequestContext().env.MY_KV_NAMESPACE
-  // await myKv.put('suffix', ' from a KV store!')
-  // const suffix = await myKv.get('suffix')
-  // return new Response(responseText + suffix)
-
-  return new Response(responseText)
+    const data = await response.json();
+    return new Response(JSON.stringify(data), {
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error: any) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }
