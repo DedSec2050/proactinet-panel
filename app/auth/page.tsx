@@ -22,6 +22,7 @@ import { ToastContainer, toast } from "react-toastify";
 const AuthenticationPage = () => {
   // auth store state and actions
   const setAuth = useAuthStore((state) => state.setAuth);
+  const user = useAuthStore((state) => state.user);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -34,25 +35,12 @@ const AuthenticationPage = () => {
     setAuth({ user: userData });
     // const maxAge = 30 * 24 * 60 * 60; // 30 days
 
-    const cookieOptions = {
-      httpOnly: true,
-      secure: true,
-      path: "/",
-      sameSite: "strict",
-    };
-    // console.log(userData.user.tokens.access);
-    // console.log(userData.user.tokens.refresh);
+    console.log(userData.user.tokens.access);
+    console.log(userData.user.tokens.refresh);
 
-    document.cookie = `Set-Cookie: login_token=${
-      userData.user.tokens.access
-    }; ${Object.entries(cookieOptions)
-      .map(([key, value]) => `${key}=${value}`)
-      .join("; ")}`;
-    document.cookie = `Set-Cookie: refresh_token=${
-      userData.user.tokens.refresh
-    }; ${Object.entries(cookieOptions)
-      .map(([key, value]) => `${key}=${value}`)
-      .join("; ")}`;
+    const maxAge = 30 * 24 * 60 * 60; // 30 days in seconds
+    document.cookie = `login_token=${userData.user.tokens.access}; path=/; max-age=${maxAge}; samesite=strict`;
+    document.cookie = `refresh_token=${userData.user.tokens.refresh}; path=/; max-age=${maxAge}; samesite=strict`;
 
     setError(null);
     toast.success(
@@ -130,12 +118,19 @@ const AuthenticationPage = () => {
       const data = await handleSignUpAttempt(username, email, password);
       console.log("Verification email sent");
       console.log(data);
+      router.push("/verify-email");
       // Success handling
       // handleLoginSuccess(data);
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard"); // Redirect to login page if no user found
+    }
+  }, [user, router]);
 
   return (
     <section className="w-full h-[100vh] flex flex-col justify-center items-center">

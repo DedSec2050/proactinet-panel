@@ -18,7 +18,7 @@ export const loginUser = async (
   username: string,
   password: string
 ): Promise<LoginResponse> => {
-  const response = await fetch("http://localhost:8000/api/login/", {
+  const response = await fetch("http://98.70.27.84:8000/api/login/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export const handleSignUpAttempt = async (
   email: string,
   password: string
 ) => {
-  const response = await fetch("http://localhost:8000/api/register/", {
+  const response = await fetch("http://98.70.27.84:8000/api/register/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

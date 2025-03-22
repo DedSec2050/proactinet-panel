@@ -1,30 +1,16 @@
 "use client";
 import React from "react";
-import Image from "next/image";
-import img from "@/public/test.png";
-import logo from "@/public/vercel.svg";
-import bg from "@/public/bg-shapes-single.webp";
 import "../../animations/fade-in.css";
 import { motion } from "framer-motion";
+import Card from "@/components/molecules/Card";
+import features from "@/staticData/features";
+import Image from "next/image";
+import alert from "@/public/features/alerts.jpg";
 
-interface FeatureItem {
-  title: string;
-  logo: string;
-  image: string;
-}
-
-interface FeatureProps {
-  features?: FeatureItem[];
-}
-
-interface FeatureCardProps {
-  logo: string;
-  title: string;
-  image: string;
-}
-
-const Features: React.FC<FeatureProps> = () => {
+const Features = () => {
+  const featuresData = features;
   console.log("this is framer :", motion);
+  console.log(featuresData);
   return (
     <section className="w-full py-10 flex flex-col justify-center items-center">
       <motion.div
@@ -34,33 +20,38 @@ const Features: React.FC<FeatureProps> = () => {
         viewport={{ once: true, amount: 0.3 }}
         className="w-full py-10 flex flex-col justify-center items-center"
       >
-        <div className="border-[0.8px] border-pink-accent overflow-hidden min-w-[290px] w-[70%] rounded-[0.5rem] fade-in-up">
-          {[1, 2, 3].map((_: number, i: number) => (
-            <div
-              key={i}
-              className={`flex items-center flex-col md:flex-row ${
-                i % 2 !== 0 ? "xl:flex-row-reverse" : ""
-              } justify-center gap-x-4 gap-y-4 px-6 py-4 bg-transparent bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-30`}
-            >
-              <div className="bg-red-400 md:w-[45%] px-4 gap-x-4 leading-snug flex">
-                <span className="overflow-hidden min-w-4 min-h-4 max-w-12 max-h-12 bg-red-600 rounded-[50%] translate-y-2">
-                  <Image src={logo} alt="" width={48} height={48} />
-                </span>
-                <span className="text-[1.1rem] md:text-[2.0rem] font-[500]">
-                  Manage Your Metrics like never before
-                </span>
-              </div>
-              <div className="bg-green-400 w-full md:w-[55%] overflow-hidden object-contain border-[0.8px] border-pink-accent rounded-[0.5rem]">
-                <Image
-                  src={img}
-                  alt="Feature image"
-                  width={500}
-                  height={500}
-                  className="w-full h-auto object-contain"
-                />
+        <div className=" w-full min-w-[280px] max-w-[1600px] flex flex-col bg-white">
+          {/* First Row  */}
+          {/* <div className="xl:flex-row flex-col flex justify-center items-center ">
+            <div className="min-w-[260px] relative xl:min-w-[42%] min-h-[199px] m-2 flex flex-col h-full border justify-center object">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="top-0 absolute h-full z-[-1] max-h-full min-w-full"
+              >
+                <source src="/features/cloud.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div className="w-full m-2 xl:m-4 xl:text-3xl top-0 absolute font-bold">
+                Centralised Monitoring System
               </div>
             </div>
-          ))}
+            <div className="m-2 w-full bg-blue-500 flex flex-col xl:flex-row">
+              <div className="min-w-[280px] xl:min-w-[48%] h-10 bg-red-500 m-2"></div>
+              <div className="min-w-[280px] xl:min-w-[48%] h-10 flex flex-col justify-center items-center bg-yellow-500 m-2 relative overflow-hidden">
+                <Image
+                  src={alert}
+                  alt=""
+                  className="absolute top-0 max-w-[450px]"
+                ></Image>
+                <div className="absolute top-2">
+                  <span className="">Get notifications</span>
+                </div>
+              </div>
+            </div>
+          </div> */}
         </div>
       </motion.div>
 
