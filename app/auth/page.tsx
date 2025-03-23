@@ -142,7 +142,7 @@ const AuthenticationPage = () => {
           Your Security, Our Priority
         </p>
       </div>
-      <Tabs defaultValue="login" className="w-[400px]">
+      <Tabs defaultValue="login" className="w-[300px] sm:w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="login">Login</TabsTrigger>
           <TabsTrigger value="sign-up">Sign Up</TabsTrigger>

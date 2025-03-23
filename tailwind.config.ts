@@ -12,7 +12,7 @@ export default {
       colors: {
         backgroundImages: {
           "custom-bg": "url('/bg.webp')",
-          notif: "url('/features/alerts.jpg",
+          notif: "url('/features/alerts.jpg')",
         },
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -27,6 +27,16 @@ export default {
           light: "#f0f4f8",
           DEFAULT: "#d9e2ec",
           dark: "#bcccdc",
+        },
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar-background))",
+          foreground: "hsl(var(--sidebar-foreground))",
+          primary: "hsl(var(--sidebar-primary))",
+          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
+          accent: "hsl(var(--sidebar-accent))",
+          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
+          border: "hsl(var(--sidebar-border))",
+          ring: "hsl(var(--sidebar-ring))",
         },
       },
       fontSize: {

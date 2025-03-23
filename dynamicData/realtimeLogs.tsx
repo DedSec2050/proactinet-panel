@@ -6,38 +6,44 @@ export default function RealtimeDisplay() {
 
   useEffect(() => {
     // Determine the proper protocol based on the current location.
-    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-    // Build the WebSocket URL.
-    const backendIp = process.env.NEXT_PUBLIC_BACKEND_IP || "192.168.0.1";
-    const wsUrl = `${protocol}://${backendIp}/ws/frontend-logs/`;
-    const socket = new WebSocket(wsUrl);
+    let socket: WebSocket;
+    try {
+      const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+      // Build the WebSocket URL.
+      const backendIp = process.env.NEXT_PUBLIC_BACKEND_IP || "192.168.0.1";
+      const wsUrl = `${protocol}://${backendIp}/ws/frontend-logs/`;
+      socket = new WebSocket(wsUrl);
 
-    socket.onopen = () => {
-      console.log("Connected to WebSocket endpoint:", wsUrl);
-    };
+      socket.onopen = () => {
+        console.log("Connected to WebSocket endpoint:", wsUrl);
+      };
 
-    socket.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        console.log("Received data:", data);
-        // Append the new message to the state.
-        setMessages((prevMessages) => [...prevMessages, data]);
-      } catch (error) {
-        console.error("Error parsing message:", error);
-      }
-    };
+      socket.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          console.log("Received data:", data);
+          // Append the new message to the state.
+          setMessages((prevMessages) => [...prevMessages, data]);
+        } catch (error) {
+          console.error("Error parsing message:", error);
+        }
+      };
 
-    socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
+      socket.onerror = (error) => {
+        console.error("WebSocket error:", error);
+      };
 
-    socket.onclose = (event) => {
-      console.log("WebSocket connection closed:", event);
-    };
-
+      socket.onclose = (event) => {
+        console.log("WebSocket connection closed:", event);
+      };
+    } catch (error) {
+      console.error("Error setting up WebSocket connection:", error);
+    }
     // Clean up on component unmount
     return () => {
-      socket.close();
+      if (socket) {
+        socket.close();
+      }
     };
   }, []);
 
@@ -49,7 +55,7 @@ export default function RealtimeDisplay() {
 
   return (
     <div className="p-5 font-sans">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="flex flex-col gap-4">
         {messages.map((msg, index) => {
           const msgSeverity = msg.alert?.severity;
           const severityConfig = severity[msgSeverity];

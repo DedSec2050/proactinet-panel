@@ -243,7 +243,7 @@ const dashboard: NextPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-span-full lg:col-span-3 overflow-hidden relative p-8 rounded-xl bg-gradient-to-b from-[#ffffff10] via-[#ffffff09] to-[#ffff1300] border-pink-accent border">
+              <div className="col-span-full lg:col-span-3 overflow-hidden relative p-4 sm:p-8 rounded-xl bg-gradient-to-b from-[#ffffff10] via-[#ffffff09] to-[#ffff1300] border-pink-accent border">
                 <div>
                   <h2 className="text-3xl font-bold text-white">
                     Get your Logs here
