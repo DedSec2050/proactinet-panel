@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function InstallationPage() {
   return (
     <div className="min-h-screen p-8 text-white overflow-scroll">
@@ -24,7 +26,7 @@ export default function InstallationPage() {
               <li>
                 Download the Proactinet binary file from{" "}
                 <a
-                  href="#"
+                  href="https://github.com/ProActinet/proactinet-installer"
                   className="text-pink-accent hover:underline font-semibold"
                 >
                   here
@@ -67,32 +69,44 @@ sudo ./proactinet-installer
                 </a>{" "}
                 to monitor real-time logs and system activity.
               </li>
+              <li>
+                Clone the daemon runner by executing:
+                <pre className="bg-[#20170fc9] p-2 rounded-xl overflow-x-auto mt-2">
+                  <code>{`
+git clone https://github.com/ProActinet/daemon-runner.git
+                  `}</code>
+                </pre>
+              </li>
+              <li>
+                Navigate into the cloned directory and create an environment
+                file as shown in the .env.local file, setting all required
+                variables in the directory where the .env.local file is present.
+              </li>
+              <li>
+                Run the build script to compile the project:
+                <pre className="bg-[#20170fc9] p-2 rounded-xl overflow-x-auto mt-2">
+                  <code>{`
+npm run build
+                  `}</code>
+                </pre>
+              </li>
+              <li>
+                Execute the exported binary. Doing so will automatically set up
+                the daemon to run in the background.
+              </li>
             </ul>
           </section>
-
-          <section>
-            <h3 className="text-2xl font-bold border-b border-white pb-2">
-              What is Proactinet?
-            </h3>
-            <p className="mt-4 text-lg text-white">
-              Proactinet is an advanced anti-botnet platform designed to protect
-              your device in real time. It silently runs in the background,
-              offering:
-            </p>
-            <ul className="list-disc pl-8 mt-4 space-y-2 text-white">
-              <li>Real-time logs of all activities</li>
-              <li>Instant email alerts for suspicious actions</li>
-              <li>Continuous surveillance of the protected device</li>
-            </ul>
-          </section>
-
           <div className="flex gap-4 mt-8 justify-center">
-            <button className="inline-flex h-12 items-center justify-center rounded-xl border border-pink-accent bg-pink-accent px-10 text-lg font-medium text-white shadow-lg transition-colors hover:bg-transparent focus:outline-none focus:ring-2 focus:ring-white">
-              Download Now
-            </button>
-            <button className="inline-flex h-12 items-center justify-center rounded-xl border border-pink-accent bg-pink-accent px-10 text-lg font-medium text-white shadow-lg transition-colors hover:bg-transparent focus:outline-none focus:ring-2 focus:ring-white">
-              Go to Dashboard
-            </button>
+            <Link href="https://github.com/ProActinet/proactinet-installer">
+              <button className="inline-flex h-12 items-center justify-center rounded-xl border border-pink-accent bg-pink-accent px-10 text-lg font-medium text-white shadow-lg transition-colors hover:bg-transparent focus:outline-none focus:ring-2 focus:ring-white">
+                Download Now
+              </button>
+            </Link>
+            <Link href="/dashboard">
+              <button className="inline-flex h-12 items-center justify-center rounded-xl border border-pink-accent bg-pink-accent px-10 text-lg font-medium text-white shadow-lg transition-colors hover:bg-transparent focus:outline-none focus:ring-2 focus:ring-white">
+                Go to Dashboard
+              </button>
+            </Link>
           </div>
         </div>
       </div>
